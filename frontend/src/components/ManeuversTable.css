@@ -1,0 +1,82 @@
+.maneuvers-table-container {
+  overflow-x: auto;
+  margin-bottom: var(--spacing-md);
+}
+
+.maneuvers-table {
+  min-width: 700px;
+}
+
+.maneuvers-table th {
+  background: var(--color-bg-secondary);
+  position: sticky;
+  top: 0;
+}
+
+.maneuvers-table td {
+  vertical-align: middle;
+}
+
+.reorder-cell {
+  padding: var(--spacing-xs) !important;
+}
+
+.reorder-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.reorder-buttons button {
+  font-size: 0.625rem;
+  padding: 2px;
+  min-width: 1.5rem;
+  min-height: 1rem;
+  line-height: 1;
+}
+
+.cell-input,
+.cell-select {
+  width: 100%;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.875rem;
+}
+
+.cell-input-number {
+  font-family: var(--font-mono);
+  text-align: right;
+  width: 80px;
+}
+
+.cell-input-small {
+  width: 60px;
+}
+
+.cell-select {
+  min-width: 100px;
+}
+
+.total-label {
+  text-align: right;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.total-value {
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  font-size: 1rem;
+}
+
+.add-maneuver-btn {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .maneuvers-table th,
+  .maneuvers-table td {
+    padding: var(--spacing-xs);
+    font-size: 0.8125rem;
+  }
+}

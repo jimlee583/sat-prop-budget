@@ -3,6 +3,12 @@
 __pycache__/
 *.pyc
 .env
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+.coverage
+htmlcov/
 
 # Node
 node_modules/
@@ -13,3 +19,11 @@ dist/
 
 # Logs
 *.log
+
+# IDE
+.idea/
+.vscode/
+
+# Data
+backend/data/*.json
+!backend/data/.gitkeep

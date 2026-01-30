@@ -1,0 +1,160 @@
+.results-card {
+  background: linear-gradient(
+    135deg,
+    var(--color-bg-card) 0%,
+    rgba(16, 185, 129, 0.05) 100%
+  );
+}
+
+.feasibility-banner {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+}
+
+.feasibility-banner.feasible {
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success);
+}
+
+.feasibility-banner.infeasible {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error);
+}
+
+.feasibility-status {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.feasible .feasibility-status {
+  color: var(--color-success);
+}
+
+.infeasible .feasibility-status {
+  color: var(--color-error);
+}
+
+.feasibility-detail {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.margin-warning {
+  color: var(--color-text-muted);
+}
+
+.results-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.summary-item {
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.summary-item.highlight {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent-primary) 0%,
+    var(--color-accent-secondary) 100%
+  );
+}
+
+.summary-label {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-xs);
+}
+
+.highlight .summary-label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.summary-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.highlight .summary-value {
+  color: white;
+}
+
+.biprop-summary {
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.biprop-summary h4 {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.biprop-row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-xs) 0;
+  font-size: 0.875rem;
+}
+
+.breakdown-title {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.breakdown-table-container {
+  overflow-x: auto;
+}
+
+.breakdown-table {
+  font-size: 0.8125rem;
+}
+
+.breakdown-table th {
+  background: var(--color-bg-secondary);
+  font-size: 0.6875rem;
+}
+
+.breakdown-table td {
+  vertical-align: top;
+}
+
+.maneuver-name {
+  font-weight: 500;
+}
+
+.maneuver-occurrences {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.thruster-name {
+  font-weight: 500;
+}
+
+.thruster-isp {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .results-summary {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
