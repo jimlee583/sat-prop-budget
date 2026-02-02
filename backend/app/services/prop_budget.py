@@ -21,6 +21,7 @@ class ManeuverSpec:
     occurrences: int = 1
     is_biprop: bool = False
     mixture_ratio_ox_to_fuel: float | None = None
+    is_xenon: bool = False
 
 
 @dataclass
@@ -36,6 +37,7 @@ class ManeuverCalcResult:
     m_after_kg: float
     ox_kg: float | None = None
     fuel_kg: float | None = None
+    xenon_kg: float | None = None
 
 
 @dataclass
@@ -149,8 +151,11 @@ def _compute_propellant_given_initial_mass(
         # Compute biprop split if applicable
         ox_kg: float | None = None
         fuel_kg: float | None = None
+        xenon_kg: float | None = None
         if maneuver.is_biprop and maneuver.mixture_ratio_ox_to_fuel is not None:
             fuel_kg, ox_kg = compute_biprop_split(prop_kg, maneuver.mixture_ratio_ox_to_fuel)
+        elif maneuver.is_xenon:
+            xenon_kg = prop_kg
 
         results.append(
             ManeuverCalcResult(
@@ -163,6 +168,7 @@ def _compute_propellant_given_initial_mass(
                 m_after_kg=m_after,
                 ox_kg=ox_kg,
                 fuel_kg=fuel_kg,
+                xenon_kg=xenon_kg,
             )
         )
 
