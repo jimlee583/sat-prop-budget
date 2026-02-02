@@ -74,6 +74,7 @@ function App() {
               delta_v_mps: selectedOption?.dv_remaining_to_geo_mps || 1800,
               thruster_id: transferThruster.id,
               occurrences: 1,
+              thruster_efficiency: 1,
             });
           }
 
@@ -86,6 +87,7 @@ function App() {
               delta_v_mps: 50,
               thruster_id: monoThruster.id,
               occurrences: 15,
+              thruster_efficiency: 1,
             });
 
             defaultManeuvers.push({
@@ -95,6 +97,7 @@ function App() {
               delta_v_mps: 2,
               thruster_id: monoThruster.id,
               occurrences: 15,
+              thruster_efficiency: 1,
             });
 
             defaultManeuvers.push({
@@ -104,6 +107,7 @@ function App() {
               delta_v_mps: 11,
               thruster_id: monoThruster.id,
               occurrences: 1,
+              thruster_efficiency: 1,
             });
           }
 
@@ -161,12 +165,13 @@ function App() {
       const result = await api.computeBudget({
         dry_mass_kg: dryMass,
         launch_option_id: selectedLaunchOption,
-        maneuvers: maneuvers.map(({ name, maneuver_type, delta_v_mps, thruster_id, occurrences }) => ({
+        maneuvers: maneuvers.map(({ name, maneuver_type, delta_v_mps, thruster_id, occurrences, thruster_efficiency }) => ({
           name,
           maneuver_type,
           delta_v_mps,
           thruster_id,
           occurrences,
+          thruster_efficiency,
         })),
       });
       setResults(result);
@@ -192,6 +197,7 @@ function App() {
         delta_v_mps: 100,
         thruster_id: defaultThruster.id,
         occurrences: 1,
+        thruster_efficiency: 1,
       },
     ]);
   }, [thrusters]);
