@@ -48,6 +48,7 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
         thruster_map[str(maneuver.thruster_id)] = thruster
 
         is_biprop = thruster.thruster_type == ThrusterType.CHEMICAL_BIPROP
+        is_xenon = thruster.thruster_type == ThrusterType.ELECTRIC_XENON
         effective_isp = thruster.isp_s * maneuver.thruster_efficiency
         maneuver_specs.append(
             ManeuverSpec(
@@ -57,6 +58,7 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
                 occurrences=maneuver.occurrences,
                 is_biprop=is_biprop,
                 mixture_ratio_ox_to_fuel=thruster.mixture_ratio_ox_to_fuel if is_biprop else None,
+                is_xenon=is_xenon,
             )
         )
 
@@ -101,6 +103,7 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
                 propellant_kg=calc_result.propellant_kg,
                 ox_kg=calc_result.ox_kg,
                 fuel_kg=calc_result.fuel_kg,
+                xenon_kg=calc_result.xenon_kg,
                 m_before_kg=calc_result.m_before_kg,
                 m_after_kg=calc_result.m_after_kg,
             )

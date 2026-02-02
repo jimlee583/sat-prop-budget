@@ -18,10 +18,12 @@ export function ResultsCard({ results }: ResultsCardProps) {
     maneuvers,
   } = results;
 
-  // Calculate totals for biprop
+  // Calculate totals for biprop and xenon
   const totalOx = maneuvers.reduce((sum, m) => sum + (m.ox_kg ?? 0), 0);
   const totalFuel = maneuvers.reduce((sum, m) => sum + (m.fuel_kg ?? 0), 0);
+  const totalXenon = maneuvers.reduce((sum, m) => sum + (m.xenon_kg ?? 0), 0);
   const hasBiprop = maneuvers.some((m) => m.ox_kg !== null);
+  const hasXenon = maneuvers.some((m) => m.xenon_kg !== null);
 
   return (
     <Card title="Results" className="results-card">
@@ -98,6 +100,17 @@ export function ResultsCard({ results }: ResultsCardProps) {
         </div>
       )}
 
+      {/* Xenon Totals */}
+      {hasXenon && (
+        <div className="biprop-summary">
+          <h4>Xenon Totals</h4>
+          <div className="biprop-row">
+            <span>Total Xenon:</span>
+            <span className="text-mono">{totalXenon.toFixed(1)} kg</span>
+          </div>
+        </div>
+      )}
+
       {/* Per-Maneuver Breakdown */}
       <h4 className="breakdown-title">Per-Maneuver Breakdown</h4>
       <div className="breakdown-table-container">
@@ -114,6 +127,7 @@ export function ResultsCard({ results }: ResultsCardProps) {
                   <th>Fuel (kg)</th>
                 </>
               )}
+              {hasXenon && <th>Xenon (kg)</th>}
               <th>Mass Before</th>
               <th>Mass After</th>
             </tr>
@@ -144,6 +158,11 @@ export function ResultsCard({ results }: ResultsCardProps) {
                       {m.fuel_kg !== null ? m.fuel_kg.toFixed(1) : '—'}
                     </td>
                   </>
+                )}
+                {hasXenon && (
+                  <td className="text-mono text-right">
+                    {m.xenon_kg !== null ? m.xenon_kg.toFixed(1) : '—'}
+                  </td>
                 )}
                 <td className="text-mono text-right">
                   {m.m_before_kg.toLocaleString(undefined, {

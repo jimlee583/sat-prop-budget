@@ -103,7 +103,11 @@ export function ThrustersManager({
               <div className="thruster-name">{thruster.name}</div>
               <div className="thruster-details">
                 <span className="thruster-type">
-                  {thruster.thruster_type === 'chemical_mono' ? 'Mono' : 'Biprop'}
+                  {thruster.thruster_type === 'chemical_mono'
+                    ? 'Mono'
+                    : thruster.thruster_type === 'chemical_biprop'
+                      ? 'Biprop'
+                      : 'Xenon'}
                 </span>
                 <span className="thruster-isp text-mono">
                   Isp: {thruster.isp_s}s
@@ -180,6 +184,7 @@ export function ThrustersManager({
               >
                 <option value="chemical_mono">Monopropellant</option>
                 <option value="chemical_biprop">Bipropellant</option>
+                <option value="electric_xenon">Electric (Xenon)</option>
               </select>
             </div>
 

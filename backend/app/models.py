@@ -12,6 +12,7 @@ class ThrusterType(str, Enum):
 
     CHEMICAL_MONO = "chemical_mono"
     CHEMICAL_BIPROP = "chemical_biprop"
+    ELECTRIC_XENON = "electric_xenon"
 
 
 class ManeuverType(str, Enum):
@@ -103,6 +104,7 @@ class ManeuverResult(BaseModel):
     propellant_kg: float
     ox_kg: float | None = None
     fuel_kg: float | None = None
+    xenon_kg: float | None = None
     m_before_kg: float
     m_after_kg: float
 

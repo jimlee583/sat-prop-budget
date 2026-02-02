@@ -1,5 +1,5 @@
 /** Thruster propellant types */
-export type ThrusterType = 'chemical_mono' | 'chemical_biprop';
+export type ThrusterType = 'chemical_mono' | 'chemical_biprop' | 'electric_xenon';
 
 /** Standard maneuver types */
 export type ManeuverType = 'orbit_transfer' | 'nssk' | 'ewsk' | 'disposal' | 'custom';
@@ -45,6 +45,7 @@ export interface ManeuverResult {
   propellant_kg: number;
   ox_kg: number | null;
   fuel_kg: number | null;
+  xenon_kg: number | null;
   m_before_kg: number;
   m_after_kg: number;
 }
