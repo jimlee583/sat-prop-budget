@@ -45,6 +45,7 @@ export function ManeuversTable({
               <th>Count</th>
               <th>Total ΔV</th>
               <th>Thruster</th>
+              <th>Efficiency</th>
               <th style={{ width: '60px' }}></th>
             </tr>
           </thead>
@@ -145,6 +146,21 @@ export function ManeuversTable({
                   </select>
                 </td>
                 <td>
+                  <input
+                    type="number"
+                    value={maneuver.thruster_efficiency}
+                    onChange={(e) =>
+                      onUpdate(maneuver.id, {
+                        thruster_efficiency: parseFloat(e.target.value) || 0,
+                      })
+                    }
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    className="cell-input cell-input-number cell-input-small"
+                  />
+                </td>
+                <td>
                   <button
                     className="btn-danger btn-sm"
                     onClick={() => onDelete(maneuver.id)}
@@ -162,7 +178,7 @@ export function ManeuversTable({
                 Total Delta-V:
               </td>
               <td className="total-value text-mono">{totalDeltaV.toFixed(1)}</td>
-              <td colSpan={2}></td>
+              <td colSpan={3}></td>
             </tr>
           </tfoot>
         </table>

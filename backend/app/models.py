@@ -86,6 +86,9 @@ class ManeuverInput(BaseModel):
     delta_v_mps: Annotated[float, Field(ge=0, description="Delta-V in m/s")]
     thruster_id: UUID
     occurrences: Annotated[int, Field(ge=1, le=10000, description="Number of occurrences")] = 1
+    thruster_efficiency: Annotated[
+        float, Field(ge=0, le=1, description="Thruster efficiency factor (0-1)")
+    ] = 1.0
 
 
 class ManeuverResult(BaseModel):

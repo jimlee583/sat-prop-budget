@@ -31,6 +31,7 @@ export interface ManeuverInput {
   delta_v_mps: number;
   thruster_id: string;
   occurrences: number;
+  thruster_efficiency: number;
 }
 
 /** Computed result for a single maneuver */

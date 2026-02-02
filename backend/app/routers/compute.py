@@ -48,11 +48,12 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
         thruster_map[str(maneuver.thruster_id)] = thruster
 
         is_biprop = thruster.thruster_type == ThrusterType.CHEMICAL_BIPROP
+        effective_isp = thruster.isp_s * maneuver.thruster_efficiency
         maneuver_specs.append(
             ManeuverSpec(
                 name=maneuver.name,
                 delta_v_mps=maneuver.delta_v_mps,
-                isp_s=thruster.isp_s,
+                isp_s=effective_isp,
                 occurrences=maneuver.occurrences,
                 is_biprop=is_biprop,
                 mixture_ratio_ox_to_fuel=thruster.mixture_ratio_ox_to_fuel if is_biprop else None,
