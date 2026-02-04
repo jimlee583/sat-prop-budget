@@ -148,7 +148,7 @@ def _compute_propellant_given_initial_mass(
         # Compute propellant for this maneuver
         prop_kg, m_after = compute_propellant_for_maneuver(m_current, total_dv, maneuver.isp_s)
 
-        # Compute biprop split if applicable
+        # Compute propellant type breakdown
         ox_kg: float | None = None
         fuel_kg: float | None = None
         xenon_kg: float | None = None
@@ -156,6 +156,9 @@ def _compute_propellant_given_initial_mass(
             fuel_kg, ox_kg = compute_biprop_split(prop_kg, maneuver.mixture_ratio_ox_to_fuel)
         elif maneuver.is_xenon:
             xenon_kg = prop_kg
+        else:
+            # Monoprop uses hydrazine (same tank as biprop fuel)
+            fuel_kg = prop_kg
 
         results.append(
             ManeuverCalcResult(

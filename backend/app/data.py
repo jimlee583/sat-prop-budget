@@ -20,7 +20,7 @@ LAUNCH_OPTIONS: dict[str, LaunchOption] = {
         name="Falcon 9 GTO - 5,500 kg",
         vehicle="SpaceX Falcon 9",
         delivered_mass_kg=5500.0,
-        dv_remaining_to_geo_mps=1500.0,
+        dv_remaining_to_geo_mps=1800.0,
         notes="Editable placeholder - supersync GTO",
     ),
     "h2a-gto": LaunchOption(
