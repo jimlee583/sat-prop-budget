@@ -8,6 +8,12 @@ interface InputsCardProps {
   launchOptions: LaunchOption[];
   selectedLaunchOption: string;
   onLaunchOptionChange: (id: string) => void;
+  hydrazineTankCapacity: number;
+  setHydrazineTankCapacity: (capacity: number) => void;
+  oxidizerTankCapacity: number;
+  setOxidizerTankCapacity: (capacity: number) => void;
+  xenonTankCapacity: number;
+  setXenonTankCapacity: (capacity: number) => void;
 }
 
 export function InputsCard({
@@ -16,6 +22,12 @@ export function InputsCard({
   launchOptions,
   selectedLaunchOption,
   onLaunchOptionChange,
+  hydrazineTankCapacity,
+  setHydrazineTankCapacity,
+  oxidizerTankCapacity,
+  setOxidizerTankCapacity,
+  xenonTankCapacity,
+  setXenonTankCapacity,
 }: InputsCardProps) {
   const selectedOption = launchOptions.find((o) => o.id === selectedLaunchOption);
 
@@ -72,6 +84,49 @@ export function InputsCard({
               )}
             </div>
           )}
+        </div>
+
+        <div className="form-group">
+          <label>Tank Capacities</label>
+          <div className="tank-inputs">
+            <div className="tank-input">
+              <label htmlFor="hydrazine-tank">Hydrazine Tank (kg)</label>
+              <input
+                id="hydrazine-tank"
+                type="number"
+                value={hydrazineTankCapacity}
+                onChange={(e) => setHydrazineTankCapacity(Number(e.target.value))}
+                min={1}
+                max={100000}
+                step={100}
+              />
+            </div>
+            <div className="tank-input">
+              <label htmlFor="oxidizer-tank">Oxidizer Tank (kg)</label>
+              <input
+                id="oxidizer-tank"
+                type="number"
+                value={oxidizerTankCapacity}
+                onChange={(e) => setOxidizerTankCapacity(Number(e.target.value))}
+                min={1}
+                max={100000}
+                step={100}
+              />
+            </div>
+            <div className="tank-input">
+              <label htmlFor="xenon-tank">Xenon Tank (kg)</label>
+              <input
+                id="xenon-tank"
+                type="number"
+                value={xenonTankCapacity}
+                onChange={(e) => setXenonTankCapacity(Number(e.target.value))}
+                min={1}
+                max={100000}
+                step={10}
+              />
+            </div>
+          </div>
+          <span className="form-hint">Monoprop + biprop fuel use Hydrazine tank</span>
         </div>
       </div>
     </Card>

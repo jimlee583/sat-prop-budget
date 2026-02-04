@@ -55,6 +55,9 @@ export interface ComputeRequest {
   dry_mass_kg: number;
   launch_option_id: string;
   maneuvers: Omit<ManeuverInput, 'id'>[];
+  hydrazine_tank_capacity_kg: number;
+  oxidizer_tank_capacity_kg: number;
+  xenon_tank_capacity_kg: number;
 }
 
 /** Response from propellant budget computation */
@@ -67,6 +70,13 @@ export interface ComputeResponse {
   mass_margin_kg: number;
   launch_option: LaunchOption;
   maneuvers: ManeuverResult[];
+  hydrazine_total_kg: number;
+  oxidizer_total_kg: number;
+  xenon_total_kg: number;
+  hydrazine_tank_capacity_kg: number;
+  oxidizer_tank_capacity_kg: number;
+  xenon_tank_capacity_kg: number;
+  tank_constraints_violated: string[];
 }
 
 /** Thruster creation data */

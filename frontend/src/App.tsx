@@ -27,6 +27,9 @@ function App() {
   const [dryMass, setDryMass] = useState(2000);
   const [selectedLaunchOption, setSelectedLaunchOption] = useState('');
   const [maneuvers, setManeuvers] = useState<ManeuverInput[]>([]);
+  const [hydrazineTankCapacity, setHydrazineTankCapacity] = useState(2000);
+  const [oxidizerTankCapacity, setOxidizerTankCapacity] = useState(1500);
+  const [xenonTankCapacity, setXenonTankCapacity] = useState(500);
 
   // Computation results
   const [results, setResults] = useState<ComputeResponse | null>(null);
@@ -173,6 +176,9 @@ function App() {
           occurrences,
           thruster_efficiency,
         })),
+        hydrazine_tank_capacity_kg: hydrazineTankCapacity,
+        oxidizer_tank_capacity_kg: oxidizerTankCapacity,
+        xenon_tank_capacity_kg: xenonTankCapacity,
       });
       setResults(result);
     } catch (err) {
@@ -181,7 +187,7 @@ function App() {
     } finally {
       setComputing(false);
     }
-  }, [dryMass, selectedLaunchOption, maneuvers]);
+  }, [dryMass, selectedLaunchOption, maneuvers, hydrazineTankCapacity, oxidizerTankCapacity, xenonTankCapacity]);
 
   // Maneuver management
   const addManeuver = useCallback(() => {
@@ -270,6 +276,12 @@ function App() {
               launchOptions={launchOptions}
               selectedLaunchOption={selectedLaunchOption}
               onLaunchOptionChange={handleLaunchOptionChange}
+              hydrazineTankCapacity={hydrazineTankCapacity}
+              setHydrazineTankCapacity={setHydrazineTankCapacity}
+              oxidizerTankCapacity={oxidizerTankCapacity}
+              setOxidizerTankCapacity={setOxidizerTankCapacity}
+              xenonTankCapacity={xenonTankCapacity}
+              setXenonTankCapacity={setXenonTankCapacity}
             />
 
             <ThrustersManager
