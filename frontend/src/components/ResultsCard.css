@@ -90,24 +90,49 @@
   color: white;
 }
 
-.biprop-summary {
+.tank-utilization {
   margin-bottom: var(--spacing-lg);
   padding: var(--spacing-md);
   background: var(--color-bg-secondary);
   border-radius: var(--radius-md);
 }
 
-.biprop-summary h4 {
+.tank-utilization h4 {
   font-size: 0.875rem;
   color: var(--color-text-secondary);
   margin-bottom: var(--spacing-sm);
 }
 
-.biprop-row {
+.tank-row {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
   padding: var(--spacing-xs) 0;
   font-size: 0.875rem;
+}
+
+.tank-row.exceeded {
+  color: var(--color-error);
+}
+
+.tank-label {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.tank-value {
+  flex: 1;
+}
+
+.tank-percent {
+  width: 70px;
+  text-align: right;
+  color: var(--color-text-muted);
+}
+
+.tank-row.exceeded .tank-percent {
+  color: var(--color-error);
+  font-weight: 600;
 }
 
 .breakdown-title {

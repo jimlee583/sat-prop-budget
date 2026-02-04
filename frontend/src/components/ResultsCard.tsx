@@ -16,12 +16,16 @@ export function ResultsCard({ results }: ResultsCardProps) {
     total_delta_v_mps,
     launch_option,
     maneuvers,
+    hydrazine_total_kg,
+    oxidizer_total_kg,
+    xenon_total_kg,
+    hydrazine_tank_capacity_kg,
+    oxidizer_tank_capacity_kg,
+    xenon_tank_capacity_kg,
+    tank_constraints_violated,
   } = results;
 
-  // Calculate totals for biprop and xenon
-  const totalOx = maneuvers.reduce((sum, m) => sum + (m.ox_kg ?? 0), 0);
-  const totalFuel = maneuvers.reduce((sum, m) => sum + (m.fuel_kg ?? 0), 0);
-  const totalXenon = maneuvers.reduce((sum, m) => sum + (m.xenon_kg ?? 0), 0);
+  // Check which propellant columns to show
   const hasBiprop = maneuvers.some((m) => m.ox_kg !== null);
   const hasXenon = maneuvers.some((m) => m.xenon_kg !== null);
 
@@ -35,11 +39,17 @@ export function ResultsCard({ results }: ResultsCardProps) {
         <div className="feasibility-detail">
           Mass margin: {mass_margin_kg >= 0 ? '+' : ''}
           {mass_margin_kg.toFixed(1)} kg
-          {!feasible && (
+          {!feasible && mass_margin_kg < 0 && (
             <span className="margin-warning">
               {' '}
               (exceeds {launch_option.name} capacity of{' '}
               {launch_option.delivered_mass_kg.toLocaleString()} kg)
+            </span>
+          )}
+          {!feasible && tank_constraints_violated.length > 0 && (
+            <span className="margin-warning">
+              {' '}
+              ({tank_constraints_violated.map(t => t.charAt(0).toUpperCase() + t.slice(1)).join(', ')} tank{tank_constraints_violated.length > 1 ? 's' : ''} exceeded)
             </span>
           )}
         </div>
@@ -85,31 +95,37 @@ export function ResultsCard({ results }: ResultsCardProps) {
         </div>
       </div>
 
-      {/* Biprop Totals */}
-      {hasBiprop && (
-        <div className="biprop-summary">
-          <h4>Bipropellant Totals</h4>
-          <div className="biprop-row">
-            <span>Total Oxidizer:</span>
-            <span className="text-mono">{totalOx.toFixed(1)} kg</span>
-          </div>
-          <div className="biprop-row">
-            <span>Total Fuel:</span>
-            <span className="text-mono">{totalFuel.toFixed(1)} kg</span>
-          </div>
+      {/* Tank Utilization */}
+      <div className="tank-utilization">
+        <h4>Tank Utilization</h4>
+        <div className={`tank-row ${tank_constraints_violated.includes('hydrazine') ? 'exceeded' : ''}`}>
+          <span className="tank-label">Hydrazine:</span>
+          <span className="tank-value text-mono">
+            {hydrazine_total_kg.toFixed(1)} / {hydrazine_tank_capacity_kg.toLocaleString()} kg
+          </span>
+          <span className="tank-percent text-mono">
+            ({((hydrazine_total_kg / hydrazine_tank_capacity_kg) * 100).toFixed(1)}%)
+          </span>
         </div>
-      )}
-
-      {/* Xenon Totals */}
-      {hasXenon && (
-        <div className="biprop-summary">
-          <h4>Xenon Totals</h4>
-          <div className="biprop-row">
-            <span>Total Xenon:</span>
-            <span className="text-mono">{totalXenon.toFixed(1)} kg</span>
-          </div>
+        <div className={`tank-row ${tank_constraints_violated.includes('oxidizer') ? 'exceeded' : ''}`}>
+          <span className="tank-label">Oxidizer:</span>
+          <span className="tank-value text-mono">
+            {oxidizer_total_kg.toFixed(1)} / {oxidizer_tank_capacity_kg.toLocaleString()} kg
+          </span>
+          <span className="tank-percent text-mono">
+            ({((oxidizer_total_kg / oxidizer_tank_capacity_kg) * 100).toFixed(1)}%)
+          </span>
         </div>
-      )}
+        <div className={`tank-row ${tank_constraints_violated.includes('xenon') ? 'exceeded' : ''}`}>
+          <span className="tank-label">Xenon:</span>
+          <span className="tank-value text-mono">
+            {xenon_total_kg.toFixed(1)} / {xenon_tank_capacity_kg.toLocaleString()} kg
+          </span>
+          <span className="tank-percent text-mono">
+            ({((xenon_total_kg / xenon_tank_capacity_kg) * 100).toFixed(1)}%)
+          </span>
+        </div>
+      </div>
 
       {/* Per-Maneuver Breakdown */}
       <h4 className="breakdown-title">Per-Maneuver Breakdown</h4>

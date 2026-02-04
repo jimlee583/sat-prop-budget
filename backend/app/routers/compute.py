@@ -81,9 +81,41 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
         )
 
     # Check feasibility
-    feasible, mass_margin = check_feasibility(
+    mass_feasible, mass_margin = check_feasibility(
         result.initial_mass_kg, launch_option.delivered_mass_kg
     )
+
+    # Calculate tank totals
+    # Hydrazine = monoprop propellant + biprop fuel
+    # Oxidizer = biprop oxidizer only
+    # Xenon = electric xenon propellant
+    hydrazine_total_kg = 0.0
+    oxidizer_total_kg = 0.0
+    xenon_total_kg = 0.0
+
+    for i, maneuver in enumerate(request.maneuvers):
+        calc_result = result.maneuver_results[i]
+        thruster = get_thruster(maneuver.thruster_id)
+        assert thruster is not None
+
+        if thruster.thruster_type == ThrusterType.CHEMICAL_MONO:
+            hydrazine_total_kg += calc_result.propellant_kg
+        elif thruster.thruster_type == ThrusterType.CHEMICAL_BIPROP:
+            hydrazine_total_kg += calc_result.fuel_kg or 0.0
+            oxidizer_total_kg += calc_result.ox_kg or 0.0
+        elif thruster.thruster_type == ThrusterType.ELECTRIC_XENON:
+            xenon_total_kg += calc_result.xenon_kg or 0.0
+
+    # Check tank constraints
+    tank_constraints_violated: list[str] = []
+    if hydrazine_total_kg > request.hydrazine_tank_capacity_kg:
+        tank_constraints_violated.append("hydrazine")
+    if oxidizer_total_kg > request.oxidizer_tank_capacity_kg:
+        tank_constraints_violated.append("oxidizer")
+    if xenon_total_kg > request.xenon_tank_capacity_kg:
+        tank_constraints_violated.append("xenon")
+
+    feasible = mass_feasible and len(tank_constraints_violated) == 0
 
     # Build response
     maneuver_results: list[ManeuverResult] = []
@@ -118,4 +150,11 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
         mass_margin_kg=mass_margin,
         launch_option=launch_option,
         maneuvers=maneuver_results,
+        hydrazine_total_kg=hydrazine_total_kg,
+        oxidizer_total_kg=oxidizer_total_kg,
+        xenon_total_kg=xenon_total_kg,
+        hydrazine_tank_capacity_kg=request.hydrazine_tank_capacity_kg,
+        oxidizer_tank_capacity_kg=request.oxidizer_tank_capacity_kg,
+        xenon_tank_capacity_kg=request.xenon_tank_capacity_kg,
+        tank_constraints_violated=tank_constraints_violated,
     )

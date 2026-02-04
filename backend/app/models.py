@@ -118,6 +118,15 @@ class ComputeRequest(BaseModel):
     dry_mass_kg: Annotated[float, Field(gt=0, le=50000, description="Satellite dry mass (kg)")]
     launch_option_id: str
     maneuvers: Annotated[list[ManeuverInput], Field(min_length=1)]
+    hydrazine_tank_capacity_kg: Annotated[
+        float, Field(gt=0, le=100000, description="Hydrazine tank capacity (kg)")
+    ] = 2000.0
+    oxidizer_tank_capacity_kg: Annotated[
+        float, Field(gt=0, le=100000, description="Oxidizer tank capacity (kg)")
+    ] = 1500.0
+    xenon_tank_capacity_kg: Annotated[
+        float, Field(gt=0, le=100000, description="Xenon tank capacity (kg)")
+    ] = 500.0
 
 
 class ComputeResponse(BaseModel):
@@ -131,6 +140,13 @@ class ComputeResponse(BaseModel):
     mass_margin_kg: float
     launch_option: LaunchOption
     maneuvers: list[ManeuverResult]
+    hydrazine_total_kg: float
+    oxidizer_total_kg: float
+    xenon_total_kg: float
+    hydrazine_tank_capacity_kg: float
+    oxidizer_tank_capacity_kg: float
+    xenon_tank_capacity_kg: float
+    tank_constraints_violated: list[str]
 
 
 # --- Health Check ---

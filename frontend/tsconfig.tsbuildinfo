@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/api.ts","./src/main.tsx","./src/types.ts","./src/vite-env.d.ts","./src/components/card.tsx","./src/components/inputscard.tsx","./src/components/maneuverstable.tsx","./src/components/resultscard.tsx","./src/components/thrustersmanager.tsx"],"version":"5.6.3"}
