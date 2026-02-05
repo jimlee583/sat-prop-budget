@@ -11,6 +11,7 @@ export interface Thruster {
   thruster_type: ThrusterType;
   isp_s: number;
   mixture_ratio_ox_to_fuel: number | null;
+  thrust_n: number | null;
 }
 
 /** Launch vehicle injection option */
@@ -42,6 +43,7 @@ export interface ManeuverResult {
   occurrences: number;
   total_delta_v_mps: number;
   thruster: Thruster;
+  thruster_efficiency: number;
   propellant_kg: number;
   ox_kg: number | null;
   fuel_kg: number | null;
@@ -85,6 +87,7 @@ export interface ThrusterCreate {
   thruster_type: ThrusterType;
   isp_s: number;
   mixture_ratio_ox_to_fuel?: number | null;
+  thrust_n?: number | null;
 }
 
 /** Health check response */

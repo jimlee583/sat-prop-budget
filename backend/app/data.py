@@ -115,47 +115,52 @@ def get_all_launch_options() -> list[LaunchOption]:
 def init_default_thrusters() -> None:
     """Initialize default thrusters if none exist."""
     if not _thrusters:
-        # 5 lbf REA mono-propellant thruster
+        # 5 lbf REA mono-propellant thruster (5 lbf = 22.2 N)
         rea_5lbf = Thruster(
             name="5 lbf REA",
             thruster_type=ThrusterType.CHEMICAL_MONO,
             isp_s=220.0,
             mixture_ratio_ox_to_fuel=None,
+            thrust_n=22.2,
         )
         _thrusters[rea_5lbf.id] = rea_5lbf
 
-        # 0.2 lbf REA mono-propellant thruster
+        # 0.2 lbf REA mono-propellant thruster (0.2 lbf = 0.89 N)
         rea_02lbf = Thruster(
             name="0.2 lbf REA",
             thruster_type=ThrusterType.CHEMICAL_MONO,
             isp_s=220.0,
             mixture_ratio_ox_to_fuel=None,
+            thrust_n=0.89,
         )
         _thrusters[rea_02lbf.id] = rea_02lbf
 
-        # LAE bi-propellant thruster
+        # LAE bi-propellant thruster (~400 N typical)
         lae = Thruster(
             name="LAE",
             thruster_type=ThrusterType.CHEMICAL_BIPROP,
             isp_s=320.0,
             mixture_ratio_ox_to_fuel=0.8,
+            thrust_n=400.0,
         )
         _thrusters[lae.id] = lae
 
-        # Arcjets mono-propellant thruster
+        # Arcjets mono-propellant thruster (~0.2 N)
         arcjets = Thruster(
             name="Arcjets",
             thruster_type=ThrusterType.CHEMICAL_MONO,
             isp_s=580.0,
             mixture_ratio_ox_to_fuel=None,
+            thrust_n=0.2,
         )
         _thrusters[arcjets.id] = arcjets
 
-        # HCT electric xenon thruster
+        # HCT electric xenon thruster (90 mN = 0.090 N typical for Hall thruster)
         hct = Thruster(
             name="HCT",
             thruster_type=ThrusterType.ELECTRIC_XENON,
             isp_s=1800.0,
             mixture_ratio_ox_to_fuel=None,
+            thrust_n=0.090,
         )
         _thrusters[hct.id] = hct

@@ -37,6 +37,9 @@ class ThrusterBase(BaseModel):
     mixture_ratio_ox_to_fuel: Annotated[
         float | None, Field(gt=0, le=10, description="Oxidizer to fuel ratio (biprop only)")
     ] = None
+    thrust_n: Annotated[
+        float | None, Field(gt=0, le=100000, description="Thrust in Newtons")
+    ] = None
 
 
 class ThrusterCreate(ThrusterBase):
@@ -52,6 +55,7 @@ class ThrusterUpdate(BaseModel):
     thruster_type: ThrusterType | None = None
     isp_s: Annotated[float | None, Field(gt=0, le=5000)] = None
     mixture_ratio_ox_to_fuel: Annotated[float | None, Field(gt=0, le=10)] = None
+    thrust_n: Annotated[float | None, Field(gt=0, le=100000)] = None
 
 
 class Thruster(ThrusterBase):
@@ -101,6 +105,7 @@ class ManeuverResult(BaseModel):
     occurrences: int
     total_delta_v_mps: float
     thruster: Thruster
+    thruster_efficiency: float
     propellant_kg: float
     ox_kg: float | None = None
     fuel_kg: float | None = None

@@ -1,9 +1,50 @@
-import type { ComputeResponse } from '../types';
+import { useState } from 'react';
+import type { ComputeResponse, ManeuverResult } from '../types';
 import { Card } from './Card';
 import './ResultsCard.css';
 
 interface ResultsCardProps {
   results: ComputeResponse;
+}
+
+/**
+ * Format burn duration as hours:minutes or minutes:seconds
+ */
+function formatDuration(seconds: number): string {
+  if (seconds >= 3600) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.round((seconds % 3600) / 60);
+    return `${hours}h ${minutes}m`;
+  }
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.round(seconds % 60);
+  return `${minutes}m ${secs}s`;
+}
+
+/**
+ * Calculate burn duration for a single HCT maneuver
+ */
+function calcBurnDuration(maneuverResult: ManeuverResult, frequencyDays: number): number | null {
+  const thruster = maneuverResult.thruster;
+
+  // Need thrust value to calculate
+  if (thruster.thrust_n === null) {
+    return null;
+  }
+
+  // yearly_delta_v = delta_v_mps (per-occurrence value, which represents yearly delta-V)
+  const yearlyDeltaV = maneuverResult.delta_v_mps;
+  const perBurnDeltaV = yearlyDeltaV * (frequencyDays / 365);
+
+  // Apply efficiency to thrust (same factor used for Isp in propellant calc)
+  const effectiveThrust = thruster.thrust_n * maneuverResult.thruster_efficiency;
+
+  // Use m_before_kg as representative mass for the burn
+  const massKg = maneuverResult.m_before_kg;
+
+  const acceleration = effectiveThrust / massKg;  // m/s²
+  const durationSeconds = perBurnDeltaV / acceleration;
+  return durationSeconds;
 }
 
 export function ResultsCard({ results }: ResultsCardProps) {
@@ -25,9 +66,20 @@ export function ResultsCard({ results }: ResultsCardProps) {
     tank_constraints_violated,
   } = results;
 
+  // State for HCT burn duration calculator
+  const [skFrequency, setSkFrequency] = useState(7);
+
   // Check which propellant columns to show
   const hasBiprop = maneuvers.some((m) => m.ox_kg !== null);
   const hasXenon = maneuvers.some((m) => m.xenon_kg !== null);
+
+  // Filter HCT/xenon maneuvers with NSSK or EWSK type and thrust data
+  const hctSkManeuvers = maneuvers.filter(
+    (m) =>
+      m.thruster.thruster_type === 'electric_xenon' &&
+      (m.maneuver_type === 'nssk' || m.maneuver_type === 'ewsk') &&
+      m.thruster.thrust_n !== null
+  );
 
   return (
     <Card title="Results" className="results-card">
@@ -195,6 +247,57 @@ export function ResultsCard({ results }: ResultsCardProps) {
           </tbody>
         </table>
       </div>
+
+      {/* HCT Burn Duration Calculator - only shown for HCT NSSK/EWSK maneuvers */}
+      {hctSkManeuvers.length > 0 && (
+        <div className="burn-duration-calc">
+          <h4>HCT Burn Duration Calculator</h4>
+          <div className="frequency-input">
+            <label htmlFor="sk-frequency">Station-Keeping Frequency:</label>
+            <input
+              id="sk-frequency"
+              type="number"
+              min={2}
+              max={14}
+              value={skFrequency}
+              onChange={(e) => setSkFrequency(Math.max(2, Math.min(14, parseInt(e.target.value) || 7)))}
+            />
+            <span className="frequency-unit">days (2-14)</span>
+          </div>
+          <div className="breakdown-table-container">
+            <table className="breakdown-table burn-duration-table">
+              <thead>
+                <tr>
+                  <th>Maneuver</th>
+                  <th>Yearly ΔV</th>
+                  <th>Per-burn ΔV</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hctSkManeuvers.map((m, i) => {
+                  const yearlyDv = m.delta_v_mps;
+                  const perBurnDv = yearlyDv * (skFrequency / 365);
+                  const durationSec = calcBurnDuration(m, skFrequency);
+                  return (
+                    <tr key={i}>
+                      <td>
+                        <div className="maneuver-name">{m.name}</div>
+                        <div className="thruster-isp">{m.thruster.name}</div>
+                      </td>
+                      <td className="text-mono text-right">{yearlyDv.toFixed(1)} m/s</td>
+                      <td className="text-mono text-right">{perBurnDv.toFixed(2)} m/s</td>
+                      <td className="text-mono text-right">
+                        {durationSec !== null ? formatDuration(durationSec) : '—'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
     </Card>
   );
 }

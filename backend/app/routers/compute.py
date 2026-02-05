@@ -132,6 +132,7 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
                 occurrences=calc_result.occurrences,
                 total_delta_v_mps=calc_result.total_delta_v_mps,
                 thruster=thruster,
+                thruster_efficiency=maneuver.thruster_efficiency,
                 propellant_kg=calc_result.propellant_kg,
                 ox_kg=calc_result.ox_kg,
                 fuel_kg=calc_result.fuel_kg,
