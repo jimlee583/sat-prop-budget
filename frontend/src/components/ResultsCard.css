@@ -177,9 +177,63 @@
   font-family: var(--font-mono);
 }
 
+/* HCT Burn Duration Calculator */
+.burn-duration-calc {
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.burn-duration-calc h4 {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}
+
+.frequency-input {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.875rem;
+}
+
+.frequency-input label {
+  color: var(--color-text-secondary);
+}
+
+.frequency-input input {
+  width: 60px;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: 0.875rem;
+  text-align: center;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+}
+
+.frequency-input input:focus {
+  outline: none;
+  border-color: var(--color-accent-primary);
+}
+
+.frequency-unit {
+  color: var(--color-text-muted);
+}
+
+.burn-duration-table {
+  margin-top: var(--spacing-sm);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .results-summary {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .frequency-input {
+    flex-wrap: wrap;
   }
 }

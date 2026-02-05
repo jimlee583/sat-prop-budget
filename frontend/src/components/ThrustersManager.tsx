@@ -14,6 +14,7 @@ interface ThrusterFormData {
   thruster_type: ThrusterType;
   isp_s: string;
   mixture_ratio_ox_to_fuel: string;
+  thrust_n: string;
 }
 
 const emptyForm: ThrusterFormData = {
@@ -21,7 +22,17 @@ const emptyForm: ThrusterFormData = {
   thruster_type: 'chemical_mono',
   isp_s: '220',
   mixture_ratio_ox_to_fuel: '0.8',
+  thrust_n: '',
 };
+
+/** Format thrust for display (mN for small values, N for larger) */
+function formatThrust(thrust_n: number | null): string {
+  if (thrust_n === null) return '';
+  if (thrust_n < 1) {
+    return `${(thrust_n * 1000).toFixed(0)} mN`;
+  }
+  return `${thrust_n.toFixed(1)} N`;
+}
 
 export function ThrustersManager({
   thrusters,
@@ -46,6 +57,7 @@ export function ThrustersManager({
       thruster_type: thruster.thruster_type,
       isp_s: String(thruster.isp_s),
       mixture_ratio_ox_to_fuel: String(thruster.mixture_ratio_ox_to_fuel ?? 0.8),
+      thrust_n: thruster.thrust_n !== null ? String(thruster.thrust_n) : '',
     });
     setEditingId(thruster.id);
     setShowForm(true);
@@ -66,6 +78,7 @@ export function ThrustersManager({
           formData.thruster_type === 'chemical_biprop'
             ? parseFloat(formData.mixture_ratio_ox_to_fuel)
             : null,
+        thrust_n: formData.thrust_n.trim() ? parseFloat(formData.thrust_n) : null,
       };
 
       if (editingId) {
@@ -112,6 +125,11 @@ export function ThrustersManager({
                 <span className="thruster-isp text-mono">
                   Isp: {thruster.isp_s}s
                 </span>
+                {thruster.thrust_n !== null && (
+                  <span className="thruster-thrust text-mono">
+                    {formatThrust(thruster.thrust_n)}
+                  </span>
+                )}
                 {thruster.mixture_ratio_ox_to_fuel !== null && (
                   <span className="thruster-mr text-mono">
                     MR: {thruster.mixture_ratio_ox_to_fuel}
@@ -228,6 +246,25 @@ export function ThrustersManager({
               </div>
             </div>
           )}
+
+          <div className="form-row">
+            <div className="form-group">
+              <label htmlFor="thruster-thrust">Thrust (N)</label>
+              <input
+                id="thruster-thrust"
+                type="number"
+                value={formData.thrust_n}
+                onChange={(e) =>
+                  setFormData((f) => ({ ...f, thrust_n: e.target.value }))
+                }
+                min={0.001}
+                max={100000}
+                step={0.001}
+                placeholder="Optional"
+              />
+              <span className="form-hint">e.g., 0.09 for 90 mN HCT</span>
+            </div>
+          </div>
 
           <div className="form-actions">
             <button type="button" className="btn-secondary" onClick={resetForm}>
