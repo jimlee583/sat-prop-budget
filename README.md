@@ -145,6 +145,43 @@ npm run build
 npm run lint
 ```
 
+## Deploy Frontend (S3 + CloudFront)
+
+### 1. Set the API base URL
+
+Edit `frontend/.env.production` and replace the placeholder with your Lambda Function URL:
+
+```
+VITE_API_BASE_URL=https://tngd44hwzfydl4ys5ceenlwo7a0ererr.lambda-url.us-east-2.on.aws/api
+```
+
+### 2. Build & sync to S3
+
+```bash
+# One-liner using the deploy script:
+bash scripts/deploy_frontend.sh
+
+# Or with a different bucket and CloudFront invalidation:
+S3_BUCKET=my-other-bucket CLOUDFRONT_DIST_ID=E1234ABCDEF \
+  bash scripts/deploy_frontend.sh
+```
+
+The script runs `npm ci`, `npm run build`, then `aws s3 sync frontend/dist s3://$S3_BUCKET --delete`. If `CLOUDFRONT_DIST_ID` is set it also creates a `/*` cache invalidation.
+
+### 3. CloudFront invalidation
+
+After deploying new assets, CloudFront may still serve stale files. The deploy script handles this automatically when `CLOUDFRONT_DIST_ID` is provided. You can also invalidate manually:
+
+```bash
+aws cloudfront create-invalidation \
+  --distribution-id E1234ABCDEF \
+  --paths "/*"
+```
+
+### 4. CORS
+
+Your Lambda Function URL must include the CloudFront distribution domain (e.g. `https://d111111abcdef8.cloudfront.net`) in its CORS allowed origins. If you're using FastAPI's `CORSMiddleware`, add the CloudFront domain to `allow_origins`.
+
 ## Project Structure
 
 ```
