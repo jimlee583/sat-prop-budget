@@ -34,8 +34,9 @@ app.add_middleware(
         "http://localhost:3000",  # Alternative port
         "http://127.0.0.1:5173",
         "http://127.0.0.1:3000",
+        "https://d3n8qlz22ubyav.cloudfront.net", 
     ],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

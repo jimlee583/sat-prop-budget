@@ -1,0 +1,18 @@
+FROM public.ecr.aws/lambda/python:3.12
+
+WORKDIR ${LAMBDA_TASK_ROOT}
+
+RUN pip install -U uv
+
+COPY pyproject.toml uv.lock ./
+
+RUN uv export --frozen --no-dev --no-install-project --format requirements-txt > requirements.txt \
+ && pip install --no-cache-dir -r requirements.txt -t ${LAMBDA_TASK_ROOT}
+
+COPY app ./app
+
+CMD ["app.lambda_handler.handler"]
+
+
+
+

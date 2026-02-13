@@ -7,7 +7,11 @@ import type {
   ThrusterCreate,
 } from './types';
 
-const API_BASE = '/api';
+// In production, VITE_API_BASE_URL points to the Lambda Function URL
+// (currently https://tngd44hwzfydl4ys5ceenlwo7a0ererr.lambda-url.us-east-2.on.aws/api).
+// In local dev the Vite
+// proxy at "/api" forwards to localhost:8000, so the default works as-is.
+const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
 async function handleResponse<T>(response: Response): Promise<T> {
   if (!response.ok) {
