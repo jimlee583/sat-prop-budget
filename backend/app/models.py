@@ -123,6 +123,12 @@ class ComputeRequest(BaseModel):
     dry_mass_kg: Annotated[float, Field(gt=0, le=50000, description="Satellite dry mass (kg)")]
     launch_option_id: str
     maneuvers: Annotated[list[ManeuverInput], Field(min_length=1)]
+    custom_delivered_mass_kg: Annotated[
+        float | None, Field(gt=0, le=50000, description="Custom payload to GTO (kg)")
+    ] = None
+    custom_dv_to_geo_mps: Annotated[
+        float | None, Field(ge=0, le=5000, description="Custom delta-V to GEO (m/s)")
+    ] = None
     hydrazine_tank_capacity_kg: Annotated[
         float, Field(gt=0, le=100000, description="Hydrazine tank capacity (kg)")
     ] = 2000.0

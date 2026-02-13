@@ -60,6 +60,8 @@ export interface ComputeRequest {
   hydrazine_tank_capacity_kg: number;
   oxidizer_tank_capacity_kg: number;
   xenon_tank_capacity_kg: number;
+  custom_delivered_mass_kg?: number;
+  custom_dv_to_geo_mps?: number;
 }
 
 /** Response from propellant budget computation */
