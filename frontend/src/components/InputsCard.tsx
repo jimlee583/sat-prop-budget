@@ -14,6 +14,10 @@ interface InputsCardProps {
   setOxidizerTankCapacity: (capacity: number) => void;
   xenonTankCapacity: number;
   setXenonTankCapacity: (capacity: number) => void;
+  customDeliveredMass: number;
+  setCustomDeliveredMass: (mass: number) => void;
+  customDvToGeo: number;
+  onCustomDvToGeoChange: (value: number) => void;
 }
 
 export function InputsCard({
@@ -28,6 +32,10 @@ export function InputsCard({
   setOxidizerTankCapacity,
   xenonTankCapacity,
   setXenonTankCapacity,
+  customDeliveredMass,
+  setCustomDeliveredMass,
+  customDvToGeo,
+  onCustomDvToGeoChange,
 }: InputsCardProps) {
   const selectedOption = launchOptions.find((o) => o.id === selectedLaunchOption);
 
@@ -60,8 +68,38 @@ export function InputsCard({
                 {option.name}
               </option>
             ))}
+            <option value="custom">Custom</option>
           </select>
-          {selectedOption && (
+          {selectedLaunchOption === 'custom' ? (
+            <div className="launch-details">
+              <div className="detail-row">
+                <label htmlFor="custom-payload" className="detail-label">Payload to GTO (kg):</label>
+                <input
+                  id="custom-payload"
+                  type="number"
+                  value={customDeliveredMass}
+                  onChange={(e) => setCustomDeliveredMass(Number(e.target.value))}
+                  min={1}
+                  max={50000}
+                  step={100}
+                  className="custom-lv-input"
+                />
+              </div>
+              <div className="detail-row">
+                <label htmlFor="custom-dv" className="detail-label">ΔV to GEO (m/s):</label>
+                <input
+                  id="custom-dv"
+                  type="number"
+                  value={customDvToGeo}
+                  onChange={(e) => onCustomDvToGeoChange(Number(e.target.value))}
+                  min={0}
+                  max={5000}
+                  step={10}
+                  className="custom-lv-input"
+                />
+              </div>
+            </div>
+          ) : selectedOption && (
             <div className="launch-details">
               <div className="detail-row">
                 <span className="detail-label">Vehicle:</span>

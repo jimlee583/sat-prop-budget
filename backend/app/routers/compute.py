@@ -6,6 +6,7 @@ from app.data import get_launch_option, get_thruster
 from app.models import (
     ComputeRequest,
     ComputeResponse,
+    LaunchOption,
     ManeuverResult,
     ThrusterType,
 )
@@ -26,12 +27,26 @@ async def compute_propellant_budget(request: ComputeRequest) -> ComputeResponse:
     and feasibility against the selected launch option.
     """
     # Validate launch option
-    launch_option = get_launch_option(request.launch_option_id)
-    if not launch_option:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"Launch option '{request.launch_option_id}' not found",
+    if request.launch_option_id == "custom":
+        if request.custom_delivered_mass_kg is None or request.custom_dv_to_geo_mps is None:
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail="Both custom_delivered_mass_kg and custom_dv_to_geo_mps are required when using custom launch option",
+            )
+        launch_option = LaunchOption(
+            id="custom",
+            name="Custom",
+            vehicle="Custom",
+            delivered_mass_kg=request.custom_delivered_mass_kg,
+            dv_remaining_to_geo_mps=request.custom_dv_to_geo_mps,
         )
+    else:
+        launch_option = get_launch_option(request.launch_option_id)
+        if not launch_option:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Launch option '{request.launch_option_id}' not found",
+            )
 
     # Validate thrusters and build maneuver specs
     maneuver_specs: list[ManeuverSpec] = []

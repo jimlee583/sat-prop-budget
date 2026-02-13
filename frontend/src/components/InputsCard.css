@@ -53,6 +53,11 @@
   font-style: italic;
 }
 
+.custom-lv-input {
+  width: 120px;
+  text-align: right;
+}
+
 .tank-inputs {
   display: flex;
   flex-direction: column;

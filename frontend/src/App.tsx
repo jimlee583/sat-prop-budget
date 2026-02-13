@@ -30,6 +30,8 @@ function App() {
   const [hydrazineTankCapacity, setHydrazineTankCapacity] = useState(2000);
   const [oxidizerTankCapacity, setOxidizerTankCapacity] = useState(1500);
   const [xenonTankCapacity, setXenonTankCapacity] = useState(500);
+  const [customDeliveredMass, setCustomDeliveredMass] = useState(5000);
+  const [customDvToGeo, setCustomDvToGeo] = useState(1800);
 
   // Computation results
   const [results, setResults] = useState<ComputeResponse | null>(null);
@@ -139,19 +141,44 @@ function App() {
   const handleLaunchOptionChange = useCallback(
     (optionId: string) => {
       setSelectedLaunchOption(optionId);
-      const option = launchOptions.find((o) => o.id === optionId);
-      if (option) {
-        // Update orbit transfer maneuver delta-V to match new launch option
+      if (optionId === 'custom') {
         setManeuvers((prev) =>
           prev.map((m) =>
             m.maneuver_type === 'orbit_transfer'
-              ? { ...m, delta_v_mps: option.dv_remaining_to_geo_mps }
+              ? { ...m, delta_v_mps: customDvToGeo }
+              : m
+          )
+        );
+      } else {
+        const option = launchOptions.find((o) => o.id === optionId);
+        if (option) {
+          setManeuvers((prev) =>
+            prev.map((m) =>
+              m.maneuver_type === 'orbit_transfer'
+                ? { ...m, delta_v_mps: option.dv_remaining_to_geo_mps }
+                : m
+            )
+          );
+        }
+      }
+    },
+    [launchOptions, customDvToGeo]
+  );
+
+  const handleCustomDvToGeoChange = useCallback(
+    (value: number) => {
+      setCustomDvToGeo(value);
+      if (selectedLaunchOption === 'custom') {
+        setManeuvers((prev) =>
+          prev.map((m) =>
+            m.maneuver_type === 'orbit_transfer'
+              ? { ...m, delta_v_mps: value }
               : m
           )
         );
       }
     },
-    [launchOptions]
+    [selectedLaunchOption]
   );
 
   // Compute budget
@@ -179,6 +206,10 @@ function App() {
         hydrazine_tank_capacity_kg: hydrazineTankCapacity,
         oxidizer_tank_capacity_kg: oxidizerTankCapacity,
         xenon_tank_capacity_kg: xenonTankCapacity,
+        ...(selectedLaunchOption === 'custom' ? {
+          custom_delivered_mass_kg: customDeliveredMass,
+          custom_dv_to_geo_mps: customDvToGeo,
+        } : {}),
       });
       setResults(result);
     } catch (err) {
@@ -187,7 +218,7 @@ function App() {
     } finally {
       setComputing(false);
     }
-  }, [dryMass, selectedLaunchOption, maneuvers, hydrazineTankCapacity, oxidizerTankCapacity, xenonTankCapacity]);
+  }, [dryMass, selectedLaunchOption, maneuvers, hydrazineTankCapacity, oxidizerTankCapacity, xenonTankCapacity, customDeliveredMass, customDvToGeo]);
 
   // Maneuver management
   const addManeuver = useCallback(() => {
@@ -282,6 +313,10 @@ function App() {
               setOxidizerTankCapacity={setOxidizerTankCapacity}
               xenonTankCapacity={xenonTankCapacity}
               setXenonTankCapacity={setXenonTankCapacity}
+              customDeliveredMass={customDeliveredMass}
+              setCustomDeliveredMass={setCustomDeliveredMass}
+              customDvToGeo={customDvToGeo}
+              onCustomDvToGeoChange={handleCustomDvToGeoChange}
             />
 
             <ThrustersManager
@@ -309,7 +344,16 @@ function App() {
                 >
                   {computing ? 'Computing...' : 'Compute Propellant Budget'}
                 </button>
-                {selectedOption && (
+                {selectedLaunchOption === 'custom' ? (
+                  <div className="launch-info">
+                    <span className="text-muted">Selected: </span>
+                    <span>Custom</span>
+                    <span className="text-muted"> • </span>
+                    <span className="text-mono">
+                      {customDeliveredMass.toLocaleString()} kg capacity
+                    </span>
+                  </div>
+                ) : selectedOption && (
                   <div className="launch-info">
                     <span className="text-muted">Selected: </span>
                     <span>{selectedOption.name}</span>
