@@ -1,0 +1,413 @@
+<mxfile host="app.diagrams.net" modified="2026-02-27T00:00:00.000Z" agent="codex" version="22.1.0">
+  <diagram id="calc-flow-1" name="Calculation Engine Flow">
+    <mxGraphModel dx="1200" dy="2600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1050" pageHeight="2700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- ==================== TITLE ==================== -->
+        <mxCell id="title" value="Satellite Propellant Budget &#x2014; Calculation Engine Flow" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontStyle=1;fontSize=18;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="150" y="10" width="500" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== LEGEND ==================== -->
+        <mxCell id="legend_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="740" y="60" width="230" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend_title" value="Legend" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=13;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="810" y="65" width="90" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="760" y="97" width="50" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1t" value="Input / Output" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="820" y="95" width="130" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="" style="rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="760" y="127" width="50" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2t" value="Calculation / Processing" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="820" y="125" width="140" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="" style="rhombus;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="762" y="155" width="44" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3t" value="Decision / Validation" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="820" y="155" width="130" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="" style="shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="760" y="190" width="50" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4t" value="Results" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="820" y="188" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5" value="" style="rounded=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="760" y="220" width="50" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5t" value="Error / Termination" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="820" y="218" width="130" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== STAGE LABELS (left margin) ==================== -->
+        <mxCell id="s1" value="&#xa;STAGE 1&#xa;Input" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#6c8ebf;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="105" y="107" width="80" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s2" value="&#xa;STAGE 2&#xa;Validation" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#d6b656;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="105" y="310" width="80" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s3" value="&#xa;STAGE 3&#xa;Setup" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#82b366;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="105" y="510" width="80" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="s4" value="&#xa;STAGE 4&#xa;Bisection&#xa;Solver" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#82b366;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="90" y="720" width="80" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s5" value="&#xa;STAGE 5&#xa;Maneuver&#xa;Loop" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#82b366;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="65" y="1080" width="80" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s6" value="&#xa;STAGE 6&#xa;Convergence" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#d6b656;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="105" y="1595" width="80" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="s7" value="&#xa;STAGE 7&#xa;Totals &amp;&#xa;Margins" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#82b366;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="105" y="1890" width="80" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="s8" value="&#xa;STAGE 8&#xa;Results" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=1;fontSize=10;fontColor=#9673a6;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="105" y="2270" width="80" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N1: CALCULATION REQUEST INPUT ==================== -->
+        <mxCell id="n1" value="&lt;b&gt;Calculation Request Input&lt;/b&gt;&lt;br&gt;&lt;br&gt;&#x2022; Maneuver list (ManeuverSpec[])&lt;br&gt;&#x2022; Satellite dry mass (kg)&lt;br&gt;&#x2022; Thruster Isp (s) per maneuver&lt;br&gt;&#x2022; &#x394;V per maneuver (m/s)&lt;br&gt;&#x2022; Occurrences per maneuver&lt;br&gt;&#x2022; Thruster efficiency factor&lt;br&gt;&#x2022; Propellant type (mono/biprop/xenon)" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;align=left;spacingLeft=20;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="210" y="60" width="380" height="170" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N2: INPUT VALIDATION ==================== -->
+        <mxCell id="n2" value="&lt;b&gt;Validate Inputs&lt;/b&gt;&lt;br&gt;&lt;br&gt;dry_mass &amp;gt; 0 ?&lt;br&gt;maneuvers &#x2260; empty ?&lt;br&gt;Isp &amp;gt; 0 ?&lt;br&gt;&#x394;V &#x2265; 0 ?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="275" y="280" width="250" height="140" as="geometry"/>
+        </mxCell>
+
+        <!-- N3: ERROR -->
+        <mxCell id="n3" value="&lt;b&gt;Raise ValueError&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="650" y="330" width="140" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N4: CALCULATE TOTAL DELTA-V ==================== -->
+        <mxCell id="n4" value="&lt;b&gt;Calculate Total &#x394;V&lt;/b&gt;&lt;br&gt;total_&#x394;V = &#x2211;(&#x394;V &#xd7; occurrences)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="470" width="260" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N5: DELTA-V = 0 ? ==================== -->
+        <mxCell id="n5" value="&lt;b&gt;Total &#x394;V = 0 ?&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="330" y="560" width="140" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- N6: RETURN ZERO -->
+        <mxCell id="n6" value="&lt;b&gt;Return Zero&lt;/b&gt;&lt;br&gt;Propellant Result" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="620" y="570" width="160" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N7: INITIALIZE BISECTION SOLVER ==================== -->
+        <mxCell id="n7" value="&lt;b&gt;Initialize Bisection Solver&lt;/b&gt;&lt;br&gt;m_low = dry_mass + &#x03B5;&lt;br&gt;m_high = dry_mass + 20,000 kg" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="680" width="260" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N8: COMPUTE MIDPOINT ==================== -->
+        <mxCell id="n8" value="&lt;b&gt;Compute Midpoint&lt;/b&gt;&lt;br&gt;m_mid = (m_low + m_high) / 2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="790" width="260" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N9: BEGIN MANEUVER SEQUENCE ==================== -->
+        <mxCell id="n9" value="&lt;b&gt;Begin Maneuver Sequence&lt;/b&gt;&lt;br&gt;m_current = m_mid&lt;br&gt;total_propellant = 0" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="890" width="260" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N10: GET MANEUVER PARAMETERS ==================== -->
+        <mxCell id="n10" value="&lt;b&gt;Get Maneuver Parameters&lt;/b&gt;&lt;br&gt;Isp_eff = Isp &#xd7; efficiency&lt;br&gt;&#x394;V_total = &#x394;V &#xd7; occurrences" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="995" width="260" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N11: ROCKET EQUATION ==================== -->
+        <mxCell id="n11" value="&lt;b&gt;Tsiolkovsky Rocket Equation&lt;/b&gt;&lt;br&gt;&lt;br&gt;g&#x2080; = 9.80665 m/s&#xb2;&lt;br&gt;MR = exp(&#x394;V / (g&#x2080; &#xd7; Isp))&lt;br&gt;m_after = m_before / MR&lt;br&gt;propellant = m_before &#x2212; m_after" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="255" y="1105" width="290" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N12: PROPELLANT TYPE DECISION ==================== -->
+        <mxCell id="n12" value="&lt;b&gt;Propellant&lt;br&gt;Type?&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="325" y="1265" width="150" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- N13: BIPROP SPLIT -->
+        <mxCell id="n13" value="&lt;b&gt;Biprop Split&lt;/b&gt;&lt;br&gt;fuel = prop / (1 + MR)&lt;br&gt;ox = prop &#x2212; fuel" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1395" width="170" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- N14: XENON -->
+        <mxCell id="n14" value="&lt;b&gt;Xenon&lt;/b&gt;&lt;br&gt;xenon_kg = prop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="1395" width="180" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- N15: MONOPROP -->
+        <mxCell id="n15" value="&lt;b&gt;Monoprop&lt;/b&gt;&lt;br&gt;hydrazine_kg = prop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="550" y="1395" width="170" height="45" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N16: UPDATE MASS STATE ==================== -->
+        <mxCell id="n16" value="&lt;b&gt;Update Mass State&lt;/b&gt;&lt;br&gt;m_current = m_after&lt;br&gt;total_propellant += prop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="1500" width="260" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N17: MORE MANEUVERS? ==================== -->
+        <mxCell id="n17" value="&lt;b&gt;More&lt;br&gt;Maneuvers?&lt;/b&gt;" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="325" y="1605" width="150" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N18: COMPUTE RESIDUAL ==================== -->
+        <mxCell id="n18" value="&lt;b&gt;Compute Residual&lt;/b&gt;&lt;br&gt;available = m_mid &#x2212; dry_mass&lt;br&gt;residual = available &#x2212; total_propellant" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="260" y="1740" width="280" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N19: CONVERGED? ==================== -->
+        <mxCell id="n19" value="&lt;b&gt;Converged?&lt;/b&gt;&lt;br&gt;|residual| &amp;lt; &#x03B5;&lt;br&gt;(&#x03B5; = 10&#x207b;&#x2076; kg)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1845" width="200" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- N20: ADJUST BOUNDS -->
+        <mxCell id="n20" value="&lt;b&gt;Adjust Bisection Bounds&lt;/b&gt;&lt;br&gt;res &amp;gt; 0 &#x2192; m_high = m_mid&lt;br&gt;res &amp;lt; 0 &#x2192; m_low = m_mid" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="620" y="1875" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N21: FINAL COMPUTATION ==================== -->
+        <mxCell id="n21" value="&lt;b&gt;Final Computation&lt;/b&gt;&lt;br&gt;Recompute propellant breakdown&lt;br&gt;with converged initial mass m&#x2080;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2010" width="260" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N22: ACCUMULATE TOTALS ==================== -->
+        <mxCell id="n22" value="&lt;b&gt;Accumulate Totals&lt;/b&gt;&lt;br&gt;&#x2022; Sum hydrazine, oxidizer, xenon&lt;br&gt;&#x2022; Per-maneuver breakdown&lt;br&gt;&#x2022; Total propellant mass" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;align=left;spacingLeft=12;" vertex="1" parent="1">
+          <mxGeometry x="270" y="2115" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N23: FEASIBILITY CHECK ==================== -->
+        <mxCell id="n23" value="&lt;b&gt;Feasibility&lt;br&gt;Check&lt;/b&gt;&lt;br&gt;&lt;br&gt;mass_margin =&lt;br&gt;launch_cap &#x2212; m&#x2080;&lt;br&gt;feasible?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="300" y="2235" width="200" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N24: TANK CONSTRAINT CHECK ==================== -->
+        <mxCell id="n24" value="&lt;b&gt;Check Tank Constraints&lt;/b&gt;&lt;br&gt;hydrazine vs. tank capacity&lt;br&gt;oxidizer vs. tank capacity&lt;br&gt;xenon vs. tank capacity" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="265" y="2415" width="270" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N25: GENERATE RESULTS ==================== -->
+        <mxCell id="n25" value="&lt;b&gt;Generate Results Object&lt;/b&gt;&lt;br&gt;&lt;br&gt;&#x2022; initial_mass_kg, dry_mass_kg&lt;br&gt;&#x2022; total_propellant_kg&lt;br&gt;&#x2022; Per-maneuver breakdown&lt;br&gt;&#x2022; Feasibility &amp;amp; mass margin&lt;br&gt;&#x2022; Tank constraint violations&lt;br&gt;&#x2022; Convergence status" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;align=left;spacingLeft=30;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="205" y="2530" width="390" height="155" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== N26: RETURN RESULTS ==================== -->
+        <mxCell id="n26" value="&lt;b&gt;Return Results&lt;br&gt;to API Layer&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="315" y="2735" width="170" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== EDGES ==================== -->
+
+        <!-- E1: N1 -> N2 -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n1" target="n2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E2: N2 -> N3 (Invalid) -->
+        <mxCell id="e2" value="Invalid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=1.5;fontColor=#b85450;fontSize=10;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" source="n2" target="n3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E3: N2 -> N4 (Valid) -->
+        <mxCell id="e3" value="Valid" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=1.5;fontColor=#82b366;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" source="n2" target="n4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E4: N4 -> N5 -->
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n4" target="n5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E5: N5 -> N6 (Yes, dV=0) -->
+        <mxCell id="e5" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#9673a6;strokeWidth=1.5;fontColor=#9673a6;fontSize=10;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" source="n5" target="n6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E6: N5 -> N7 (No) -->
+        <mxCell id="e6" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;fontColor=#666666;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" source="n5" target="n7" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E7: N7 -> N8 -->
+        <mxCell id="e7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n7" target="n8" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E8: N8 -> N9 -->
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n8" target="n9" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E9: N9 -> N10 -->
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n9" target="n10" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E10: N10 -> N11 -->
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n10" target="n11" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E11: N11 -> N12 -->
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n11" target="n12" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E12: N12 -> N13 (Biprop) -->
+        <mxCell id="e12" value="Biprop" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;fontColor=#666666;fontSize=10;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="n12" target="n13" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E13: N12 -> N14 (Xenon) -->
+        <mxCell id="e13" value="Xenon" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;fontColor=#666666;fontSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="n12" target="n14" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E14: N12 -> N15 (Monoprop) -->
+        <mxCell id="e14" value="Monoprop" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;fontColor=#666666;fontSize=10;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="n12" target="n15" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E15: N13 -> N16 -->
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="n13" target="n16" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="165" y="1528"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- E16: N14 -> N16 -->
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" source="n14" target="n16" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E17: N15 -> N16 -->
+        <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="n15" target="n16" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="635" y="1528"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- E18: N16 -> N17 -->
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n16" target="n17" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E19: N17 -> N10 (Yes, loop back - more maneuvers) -->
+        <mxCell id="e19" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#d6b656;strokeWidth=1.5;fontColor=#d6b656;fontSize=10;fontStyle=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=0;" edge="1" source="n17" target="n10" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="1645"/>
+              <mxPoint x="170" y="1025"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- E20: N17 -> N18 (No, all maneuvers done) -->
+        <mxCell id="e20" value="No (done)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;fontColor=#666666;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" source="n17" target="n18" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E21: N18 -> N19 -->
+        <mxCell id="e21" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n18" target="n19" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E22: N19 -> N20 (No, not converged) -->
+        <mxCell id="e22" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=1.5;fontColor=#b85450;fontSize=10;fontStyle=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" source="n19" target="n20" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E23: N20 -> N8 (loop back to bisection midpoint) -->
+        <mxCell id="e23" value="Iterate" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#b85450;strokeWidth=1.5;fontColor=#b85450;fontSize=10;dashed=0;exitX=1;exitY=0;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="n20" target="n8" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="860" y="1875"/>
+              <mxPoint x="860" y="815"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- E24: N19 -> N21 (Yes, converged) -->
+        <mxCell id="e24" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#82b366;strokeWidth=1.5;fontColor=#82b366;fontSize=10;fontStyle=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" source="n19" target="n21" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E25: N21 -> N22 -->
+        <mxCell id="e25" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n21" target="n22" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E26: N22 -> N23 -->
+        <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n22" target="n23" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E27: N23 -> N24 -->
+        <mxCell id="e27" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" source="n23" target="n24" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E28: N24 -> N25 -->
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n24" target="n25" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- E29: N25 -> N26 -->
+        <mxCell id="e29" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeColor=#666666;strokeWidth=1.5;" edge="1" source="n25" target="n26" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== LOOP ANNOTATIONS ==================== -->
+
+        <!-- Maneuver loop annotation -->
+        <mxCell id="loop1_label" value="Maneuver Loop" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=3;fontSize=10;fontColor=#d6b656;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1300" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="loop1_bracket" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#d6b656;dashed=1;strokeWidth=1;opacity=40;" vertex="1" parent="1">
+          <mxGeometry x="155" y="985" width="705" height="720" as="geometry"/>
+        </mxCell>
+
+        <!-- Bisection loop annotation -->
+        <mxCell id="loop2_label" value="Bisection Solver Loop" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontStyle=3;fontSize=10;fontColor=#b85450;rotation=-90;" vertex="1" parent="1">
+          <mxGeometry x="100" y="1340" width="130" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="loop2_bracket" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#b85450;dashed=1;strokeWidth=1;opacity=40;" vertex="1" parent="1">
+          <mxGeometry x="140" y="780" width="740" height="1160" as="geometry"/>
+        </mxCell>
+
+        <!-- ==================== CODE REFERENCE ANNOTATIONS ==================== -->
+        <mxCell id="ref1" value="&lt;i&gt;solve_propellant_budget()&lt;/i&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="545" y="690" width="170" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ref2" value="&lt;i&gt;_compute_propellant_given_initial_mass()&lt;/i&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="545" y="900" width="250" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ref3" value="&lt;i&gt;compute_mass_ratio()&lt;br&gt;compute_propellant_for_maneuver()&lt;/i&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="555" y="1130" width="210" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="ref4" value="&lt;i&gt;compute_biprop_split()&lt;/i&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="80" y="1455" width="150" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ref5" value="&lt;i&gt;check_feasibility()&lt;/i&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="510" y="2280" width="130" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="ref6" value="&lt;i&gt;G0 = 9.80665 m/s&#xb2;&lt;/i&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=9;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="555" y="1160" width="120" height="20" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
